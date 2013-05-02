@@ -459,8 +459,8 @@ class DescriptorReader(object):
 
     try:
       last_modified = int(os.stat(target).st_mtime)
-      last_used = self._processed_files.get(target)
-      new_processed_files[target] = last_modified
+      last_used = self._processed_files.get(os.path.abspath(target))
+      new_processed_files[os.path.abspath(target)] = last_modified
     except OSError, exc:
       self._notify_skip_listeners(target, ReadFailed(exc))
       return
